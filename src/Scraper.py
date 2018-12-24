@@ -1,6 +1,7 @@
 import praw
 import credentials
 
+
 def login():
     reddit = praw.Reddit(client_id=credentials.client_id,
                          client_secret=credentials.client_secret,
@@ -13,9 +14,10 @@ def login():
 
 if __name__ == '__main__':
     reddit = login()
-    subreddit = reddit.subreddit('formula1')
-    top_lines = subreddit.top('week')
-    # top_lines1 = reddit.hot(limit=10)
-    for submission in reddit.front.hot():
-        print(submission)
+    subreddit = reddit.subreddit('LivestreamFail')
+    top_lines = subreddit.top('week', limit=5)
+    for line in top_lines:
+        if line.ups<800:
+            break
+        print('Title: %s\nUpvotes: %d\nUrl: %s\n' % (line.title, line.ups, line.url))
 
