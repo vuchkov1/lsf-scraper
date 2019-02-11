@@ -1,5 +1,10 @@
 import praw
 import credentials
+import urllib.request
+
+
+def download_clip(url, title):
+    urllib.request.urlretrieve(url, title+'.flv')
 
 
 def login():
@@ -15,9 +20,15 @@ def login():
 if __name__ == '__main__':
     reddit = login()
     subreddit = reddit.subreddit('LivestreamFail')
-    top_lines = subreddit.top('week', limit=5)
+    limit=10
+    top_lines = subreddit.top('day', limit=limit)
+    myfile = open('xyz.txt', 'w')
     for line in top_lines:
-        if line.ups<800:
-            break
-        print('Title: %s\nUpvotes: %d\nUrl: %s\n' % (line.title, line.ups, line.url))
+        # if line.ups<800:
+        #     break
+        myfile.write("%s\n" % line.url)
+
+    myfile.close()
+        # download_clip(line.url, line.title)
+        # print('Title: %s\nUpvotes: %d\nUrl: %s\n' % (line.title, line.ups, line.url))
 
