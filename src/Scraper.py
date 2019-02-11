@@ -7,6 +7,10 @@ def download_clip(url, title):
     urllib.request.urlretrieve(url, title+'.flv')
 
 
+def samo_levski():
+    return "SAMO LEVSKI"
+
+
 def login():
     reddit = praw.Reddit(client_id=credentials.client_id,
                          client_secret=credentials.client_secret,
